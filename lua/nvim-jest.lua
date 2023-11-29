@@ -29,6 +29,7 @@ local function run_jest(args)
 
   local jest_cmd = table.concat(t, "")
   vim.api.nvim_command(jest_cmd)
+  vim.api.nvim_command("set nomodified")
 end
 
 function M.setup(user_data)
