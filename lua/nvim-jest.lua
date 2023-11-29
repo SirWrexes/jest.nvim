@@ -1,6 +1,9 @@
 local M = {}
 
-local config = {}
+local config = {
+  jest_cmd = "npx jest",
+  silent = true,
+}
 
 local function get_current_file_path()
   return vim.fn.expand("%:p")
@@ -26,22 +29,11 @@ local function run_jest(args)
 
   local jest_cmd = table.concat(t, "")
   vim.api.nvim_command(jest_cmd)
-  vim.api.nvim_command('setlocal nobuflisted')
+  vim.api.nvim_command("setlocal nobuflisted")
 end
 
 function M.setup(user_data)
-  if user_data ~= nil then
-    config.jest_cmd = user_data.jest_cmd or nil
-    config.silent = user_data.silent or nil
-  end
-
-  if config.jest_cmd == nil then
-    config.jest_cmd = "npx jest"
-  end
-
-  if config.silent == nil then
-    config.silent = true
-  end
+  config = vim.tbl_deep_extend("force", config, user_data or {})
 end
 
 function M.test_project()
