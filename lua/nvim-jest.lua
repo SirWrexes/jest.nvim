@@ -34,6 +34,10 @@ end
 
 function M.setup(user_data)
   config = vim.tbl_deep_extend("force", config, user_data or {})
+
+  if vim.g.jest_cmd ~= nil then
+    config.jest_cmd = vim.g.jest_cmd
+  end
 end
 
 function M.test_project()
