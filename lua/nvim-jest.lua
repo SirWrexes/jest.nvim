@@ -33,7 +33,9 @@ local function run_jest(args)
 end
 
 function M.setup(user_data)
-  config = vim.tbl_deep_extend("force", config, user_data or {})
+  user_data = user_data or {}
+
+  config = vim.tbl_extend("force", config, user_data)
 
   if vim.g.jest_cmd ~= nil then
     config.jest_cmd = vim.g.jest_cmd
